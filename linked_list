@@ -1,0 +1,77 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node{
+    public : 
+    int data;
+    Node* next;
+    
+    Node(int val){
+        data = val;
+        next = NULL;
+    }
+};
+
+void insert_at_tail(Node* &head, int val){
+    Node *n = new Node(val);
+    Node *temp = head;
+    
+    if(head == NULL){
+        head = n;
+        return;
+    }
+    
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+    temp->next = n;
+}
+
+void insert_at_head(Node* &head,int val){
+    Node* n=new Node(val);
+    n->next = head;
+    head=n;
+}
+
+void print_linked_list(Node* head){
+    Node* temp=head;
+    while(temp!=NULL){
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"NULL"<<endl;
+}
+
+bool search_in_linked_list(Node* head, int key){
+    Node* temp=head;
+    while(temp!=NULL){
+        if(temp->data == key){
+            return true;
+        }
+        temp=temp->next;
+    }
+    return false;
+}
+
+void delete_node(Node* &head,int key){
+    Node* temp=head;
+    while(temp->next->data!=key){
+        temp=temp->next;
+    }
+    Node* to_delete = temp->next;
+    temp->next = temp->next->next;
+    delete to_delete;
+}
+
+int main(){
+    Node* head=NULL;
+    insert_at_tail(head,1);
+    insert_at_tail(head,2);
+    insert_at_tail(head,3);
+    print_linked_list(head);
+    insert_at_head(head,4);
+    print_linked_list(head);
+    cout<<search_in_linked_list(head,8)<<endl;
+    delete_node(head,2);
+    print_linked_list(head);
+}
